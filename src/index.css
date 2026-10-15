@@ -1,0 +1,43 @@
+.episodes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.season {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(4.5rem, 1fr));
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.season-header {
+  grid-column: 1 / -1;
+  padding: 0.5rem 0;
+  font-weight: 700;
+}
+
+.episode {
+  display: grid;
+  min-width: 0;
+  min-height: 2.5rem;
+  padding: 0.35rem;
+  place-items: center;
+  background: var(--color);
+  border-radius: 0.5rem;
+  color: #fff;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.rating-0 { --color: #2b0a27 }
+.rating-1 { --color: #451010 }
+.rating-2 { --color: #922323 }
+.rating-3 { --color: #c53030 }
+.rating-4 { --color: #c53030 }
+.rating-5 { --color: #c53030 }
+.rating-6 { --color: #dd6b20 }
+.rating-7 { --color: #f6e05e; color: #333 }
+.rating-8 { --color: #48bb78 }
+.rating-9 { --color: #2f855a }
+.rating-10 { --color: #4CAF50 }

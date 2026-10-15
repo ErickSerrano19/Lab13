@@ -1,19 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Temporadas y episodios</title>
+    <link rel="stylesheet" href="./index.css">
     <script type="module" src="./index.js"></script>
 </head>
 <body>
-    welcome!
+    <div class="content">
 
-    <input type="text" class="taskInput">
-    <button type="button" class="taskButton">Add Task</button> 
-    <ul id="users">
-    
+<!-- Los datos de la serie -->
+<header class="show-header">
+  <img class="poster" src="">
+  <h1></h1>
+</header>
 
-    </ul>
+<!-- Las temporadas de la serie -->
+<section class="episodes" aria-label="Temporadas y episodios"></section>
+
+<template id="season-template">
+  <!-- Por cada temporada -->
+  <article class="season">
+    <!-- Titular -->
+    <header class="season-header"></header>
+    <!-- Por cada episodio -->
+  </article>
+</template>
+
+<template id="episode-template">
+  <div class="episode"></div>
+</template>
+    </div>
 </body>
 </html>

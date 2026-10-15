@@ -1,5 +1,4 @@
-
-import data from "./data.json";
+/*import data from "./data.json";
 import mifuncion, { HELLO } from "./modules/modulo.js";
 
 console.log(HELLO);
@@ -42,4 +41,72 @@ function mostrarUsuarios(){
     
     });
 
+}*/
+
+const ID = "83";
+const PLACEHOLDER_IMAGE = "https://static.tvmaze.com/uploads/images/medium_portrait/637/1594614.jpg";
+
+const getShowData = async (id) => {
+  const URL = `https://api.tvmaze.com/shows/${id}`;
+  const data = await fetch(URL).then(res => res.json());
+
+  return {
+    name: data.name,
+    rating: data.rating,
+    image: data.image?.medium ?? PLACEHOLDER_IMAGE
+  }
 }
+
+const getEpisodeList = async (id) => {
+  const URL = `https://api.tvmaze.com/shows/${id}/episodes`;
+  const episodes = await fetch(URL).then(res => res.json());
+
+  const episodesBySeason = {};
+  episodes.forEach((episode) => {
+    const season = episode.season;
+    if (!episodesBySeason[season]) {
+      episodesBySeason[season] = [];
+    }
+    episodesBySeason[season].push({
+      number: episode.number,
+      season,
+      rating: episode.rating.average
+    });
+  });
+
+  return episodesBySeason;
+}
+
+const show = await getShowData(ID);         // { name, rating, image }
+const seasons = await getEpisodeList(ID);   // { 1: [ { number, season, rating }, ... ], 2: ... }
+
+// Los datos de la serie
+const $header = document.querySelector(".show-header");
+$header.querySelector(".poster").src = show.image;
+$header.querySelector("h1").textContent = show.name;
+
+// Cada episodio
+const createEpisode = (episode) => {
+  const rating = Math.min(10, Math.round(episode.rating ?? 0));
+  return `<div class="episode episode-${episode.number} rating-${rating}">
+    E${episode.number} · T${episode.season} · ★${episode.rating ?? "N/A"}
+  </div>`;
+};
+
+// Cada temporada (data = array de episodios, number = temporada)
+const createSeason = (episodes, number) => {
+  let seasonHTML = `<article class="season">
+    <header class="season-header">T${String(number).padStart(2, "0")}</header>`;
+
+  episodes.forEach((episode) => {
+    seasonHTML += createEpisode(episode);
+  });
+
+  return `${seasonHTML}</article>`;
+};
+
+// Recorre cada temporada y llama a createSeason
+const $episodes = document.querySelector(".episodes");
+Object.entries(seasons).forEach(([number, episodes]) => {
+  $episodes.insertAdjacentHTML("beforeend", createSeason(episodes, Number(number)));
+});
