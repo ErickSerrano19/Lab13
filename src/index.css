@@ -6,7 +6,7 @@
 
 .season {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(4.5rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
   gap: 0.5rem;
   width: 100%;
 }
@@ -18,16 +18,41 @@
 }
 
 .episode {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
   min-width: 0;
-  min-height: 2.5rem;
-  padding: 0.35rem;
-  place-items: center;
-  background: var(--color);
+  min-height: 5.5rem;
+  padding: 0.75rem;
+  border-left: 4px solid var(--color);
   border-radius: 0.5rem;
-  color: #fff;
-  font-size: 0.875rem;
-  text-align: center;
+  background: #f7fafc;
+  color: #1a202c;
+  text-align: left;
+}
+
+.episode-name {
+  font-weight: 700;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.episode-details {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+  color: #4a5568;
+  font-size: 0.8rem;
+}
+
+.episode-rating {
+  color: #975a16;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .rating-0 { --color: #2b0a27 }
@@ -37,7 +62,7 @@
 .rating-4 { --color: #c53030 }
 .rating-5 { --color: #c53030 }
 .rating-6 { --color: #dd6b20 }
-.rating-7 { --color: #f6e05e; color: #333 }
+.rating-7 { --color: #f6e05e }
 .rating-8 { --color: #48bb78 }
 .rating-9 { --color: #2f855a }
 .rating-10 { --color: #4CAF50 }

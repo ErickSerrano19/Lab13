@@ -69,6 +69,7 @@ const getEpisodeList = async (id) => {
     }
     episodesBySeason[season].push({
       number: episode.number,
+      name: episode.name,
       season,
       rating: episode.rating.average
     });
@@ -89,7 +90,8 @@ $header.querySelector("h1").textContent = show.name;
 const createEpisode = (episode) => {
   const rating = Math.min(10, Math.round(episode.rating ?? 0));
   return `<div class="episode episode-${episode.number} rating-${rating}">
-    E${episode.number} · T${episode.season} · ★${episode.rating ?? "N/A"}
+    <span class="episode-name">${episode.name}</span>
+    <span class="episode-details">Episodio ${episode.number} <span class="episode-rating">★ ${episode.rating ?? "N/A"}</span></span>
   </div>`;
 };
 
