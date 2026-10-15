@@ -1,33 +1,45 @@
-console.log("Buenos días, escrito en consola");
 
 import data from "./data.json";
-import modulo from "./modules/modulo.js";
-import { Hello } from "./modules/modulo.js";
+import mifuncion, { HELLO } from "./modules/modulo.js";
 
-console.log(modulo());
-console.log(data.users);
-console.log(Hello);
-const addUser = document.querySelector("#add-user");
-const userInput = document.querySelector("#user-input");
+console.log(HELLO);
+console.log(mifuncion());
+
+const nuevoArreglo = data.users.filter((user) => user.age > 25);
+
+
 const usersList = document.querySelector("#users");
+const taskInput = document.querySelector(".taskInput");
+const taskButton = document.querySelector(".taskButton");
 
+taskButton.addEventListener("click", (e) => {
+    console.log(taskInput.value);
 
-function mostrarUsers() {
-    usersList.replaceChildren();
-
-    data.users.filter((user) => user.age >= 20).forEach((user) => {
-        console.log(user.name);
-        usersList.insertAdjacentElement("beforeend", <li>${user.name}</li>);
-    });
-}
-
-mostrarUsers();
-
-addUser.addEventListener("click", (e) => {
-    console.log("userInput", userInput.value);
+    // Agregar un nuevo usuario al arreglo de usuarios
     data.users.push({
-    "name": userInput.value,
-    "age": 25
+        name: taskInput.value,
+        age: 30
+    });
+
+// Mostrar los usuarios actualizados
+   mostrarUsuarios();
+   // Limpiar el campo de entrada después de agregar el usuario
+   taskInput.value = "";
 });
-    mostrarUsers();
-});
+
+mostrarUsuarios();
+
+function mostrarUsuarios(){
+    
+    // Limpiar la lista antes de mostrar los usuarios
+    usersList.innerHTML = "";
+
+    // Mostrar los usuarios en la lista
+    data.users.forEach((user) =>{
+    
+        console.log(user.name);
+        usersList.insertAdjacentHTML("beforeend", `<li>${user.name}</li>`); //mejorar esto
+    
+    });
+
+}
